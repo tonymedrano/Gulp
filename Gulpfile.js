@@ -64,7 +64,7 @@ gulp.task('watch', function() { // Watch the compiling
 gulp.task('browser-sync', function() { // Creates an external or internal link for test apps
     browserSync({
         server: {
-            baseDir: "./app/"
+            baseDir: "./app"
         }
     });
 });
