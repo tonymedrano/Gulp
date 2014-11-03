@@ -1,9 +1,9 @@
-/*
- * Created by: Tony Medrano.
- * Date: November 2014.
- * GulpJs Built System setup
- * Feel free to add more functionality
- */
+
+// Created by: Tony Medrano.
+// Date: November 2014.
+// GulpJs Built System setup
+// Feel free to add more functionality
+
 
 
 var gulp = require('gulp'), // Loading framework through variables
