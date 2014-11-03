@@ -63,7 +63,7 @@ gulp.task('watch', function() { // Watch and apply changes on browser
 gulp.task('browser-sync', function() { // Creates an external link for test apps
     browserSync({
         server: {
-            baseDir: "./"
+            baseDir: "./app/"
         }
     });
 });
