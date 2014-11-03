@@ -53,7 +53,7 @@ gulp.task('html', function() { // Load the index app file
 	.pipe(connect.reload());
 });
 
-gulp.task('watch', function() { // Watch and apply changes on browser
+gulp.task('watch', function() { // Watch the compiling
 	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
 	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
@@ -63,11 +63,7 @@ gulp.task('watch', function() { // Watch and apply changes on browser
 gulp.task('browser-sync', function() { // Creates an external or internal link for test apps
     browserSync({
         server: {
-<<<<<<< HEAD
             baseDir: "./app"
-=======
-            baseDir: "./app/"
->>>>>>> FETCH_HEAD
         }
     });
 });
