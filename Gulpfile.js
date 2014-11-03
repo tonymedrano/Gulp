@@ -13,6 +13,7 @@ coffee = require('gulp-coffee'),
 	stylus = require('gulp-stylus'),
 	less = require('gulp-less'),
 	browserSync = require('browser-sync'),
+	angularbuilder = require("gulp-angular-builder"),
     nib = require('nib');
 	
 gulp.task('server', function() {
@@ -52,7 +53,7 @@ gulp.task('html', function() { // Load the index app file
 	.pipe(connect.reload());
 });
 
-gulp.task('watch', function() { // Watch the compiling
+gulp.task('watch', function() { // Watch and apply changes on browser
 	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
 	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
@@ -66,5 +67,18 @@ gulp.task('browser-sync', function() { // Creates an external link for test apps
         }
     });
 });
+
+gulp.task("build-files", function () {
+    return gulp.src([
+        // All js, html (ejs), and json files to consider
+        "./shared/**/*.+(js|html|json)",
+        "./local/**/*.+(js|html|json)",
+        "./index.html.ejs"
+    ]).pipe(
+        angularbuilder(seed, options)
+    ).pipe(
+        // Do other things!
+    );
+};
 
 gulp.task('default', ['server', 'browser-sync', 'coffee', 'watch']); // Tracing all...
