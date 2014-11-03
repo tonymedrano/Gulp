@@ -13,6 +13,7 @@ coffee = require('gulp-coffee'),
 	stylus = require('gulp-stylus'),
 	less = require('gulp-less'),
 	browserSync = require('browser-sync'),
+    watch = require("gulp-watch"),
     nib = require('nib');
 	
 gulp.task('server', function() {
@@ -52,7 +53,7 @@ gulp.task('html', function() { // Load the index app file
 	.pipe(connect.reload());
 });
 
-gulp.task('watch', function() { // Watch the compiling
+gulp.task('watch', function() { // Watch and apply changes on browser
 	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
 	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
@@ -62,7 +63,11 @@ gulp.task('watch', function() { // Watch the compiling
 gulp.task('browser-sync', function() { // Creates an external or internal link for test apps
     browserSync({
         server: {
+<<<<<<< HEAD
             baseDir: "./app"
+=======
+            baseDir: "./app/"
+>>>>>>> FETCH_HEAD
         }
     });
 });
