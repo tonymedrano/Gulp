@@ -7,12 +7,13 @@
 
 
 var gulp = require('gulp'), // Loading framework through variables
-coffee = require('gulp-coffee'),
+    coffee = require('gulp-coffee'),
 	connect = require('gulp-connect'),
 	historyApiFallback = require('connect-history-api-fallback'),
 	stylus = require('gulp-stylus'),
 	less = require('gulp-less'),
 	browserSync = require('browser-sync'),
+	server = require('gulp-server-livereload'),
     watch = require("gulp-watch"),
     nib = require('nib');
 	
@@ -49,21 +50,21 @@ gulp.task('less', function() { // Compile all Less to Css
 });
 
 gulp.task('html', function() { // Load the index app file
-	gulp.src('./app/**/*.html')
+	gulp.src('./app/*.html')
 	.pipe(connect.reload());
 });
 
 gulp.task('watch', function() { // Watch the compiling
-	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
-	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
+	gulp.watch(['./app/stylesheets/*.styl'], ['css']);
+	gulp.watch(['./app/stylesheets/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
-	gulp.watch(['./app/**/*.html'], ['html']);
+	gulp.watch(['./app/*.html'], ['html']);
 });
 
 gulp.task('browser-sync', function() { // Creates an external or internal link for test apps
     browserSync({
         server: {
-            baseDir: "./app"
+            baseDir: "./app/"
         }
     });
 });
