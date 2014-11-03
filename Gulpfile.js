@@ -13,11 +13,11 @@ var gulp = require('gulp'), // Loading framework through variables
 	stylus = require('gulp-stylus'),
 	less = require('gulp-less'),
 	browserSync = require('browser-sync'),
-	server = require('gulp-server-livereload'),
+//	server = require('gulp-server-livereload'), Removing this server - do not need it anymore
     watch = require("gulp-watch"),
     nib = require('nib');
 	
-gulp.task('server', function() {
+/* gulp.task('server', function() { Removing this server - do not need it anymore
 	connect.server({
 	root: './app',
 	hostname: '0.0.0.0',
@@ -27,37 +27,38 @@ gulp.task('server', function() {
 		  return [ historyApiFallback ];
 		}
 	});
-});
+}); */
 
 gulp.task('coffee', function() { // Compile all CoffeeScript to Javascript
   gulp.src('./app/js/*.coffee')
     .pipe(coffee({bare: true}))
-    .pipe(gulp.dest('./app/js'));
+    .pipe(gulp.dest('./app/js'))
+    .pipe(browserSync.reload({stream:true})); //.pipe(connect.reload()); for server not need it
 });
 
 gulp.task('css', function() { // Compile all Stylus to Css
 	gulp.src('./app/stylesheets/main.styl')
 	.pipe(stylus({ use: nib() }))
 	.pipe(gulp.dest('./app/stylesheets'))
-	.pipe(connect.reload());
+	.pipe(browserSync.reload({stream:true})); //.pipe(connect.reload()); for server not need it
 });
 
 gulp.task('less', function() { // Compile all Less to Css
 	gulp.src('./app/stylesheets/*.less')
 	.pipe(less({ use: nib() }))
 	.pipe(gulp.dest('./app/stylesheets'))
-	.pipe(connect.reload());
+	.pipe(browserSync.reload({stream:true})); //.pipe(connect.reload()); for server not need it
 });
 
 gulp.task('html', function() { // Load the index app file
 	gulp.src('./app/*.html')
-	.pipe(connect.reload());
+	.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('watch', function() { // Watch the compiling
-	gulp.watch(['./app/stylesheets/*.styl'], ['css']);
-	gulp.watch(['./app/stylesheets/*.less'], ['less']);
-	gulp.watch(['./app/js/*.coffee'], ['coffee']);
+	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
+	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
+	gulp.watch(['./app/js/**/*.coffee'], ['coffee']);
 	gulp.watch(['./app/*.html'], ['html']);
 });
 
@@ -69,4 +70,4 @@ gulp.task('browser-sync', function() { // Creates an external or internal link f
     });
 });
 
-gulp.task('default', ['server', 'browser-sync', 'coffee', 'watch']); // Tracing all...
+gulp.task('default', ['browser-sync', 'coffee', 'watch']); // Tracing all... ( 'server' not need it)
