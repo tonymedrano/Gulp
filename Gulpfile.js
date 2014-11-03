@@ -1,10 +1,18 @@
+/*
+ * Created by: Tony Medrano.
+ * Date: November 2014.
+ * GulpJs Built System setup
+ * Feel free to add more functionality
+ */
 
-var gulp = require('gulp'),
+
+var gulp = require('gulp'), // Loading framework through variables
 coffee = require('gulp-coffee'),
 	connect = require('gulp-connect'),
 	historyApiFallback = require('connect-history-api-fallback'),
 	stylus = require('gulp-stylus'),
 	less = require('gulp-less'),
+	browserSync = require('browser-sync'),
     nib = require('nib');
 	
 gulp.task('server', function() {
@@ -19,36 +27,43 @@ gulp.task('server', function() {
 	});
 });
 
-gulp.task('coffee', function() {
+gulp.task('coffee', function() { // Compile all CoffeeScript to Javascript
   gulp.src('./app/js/*.coffee')
     .pipe(coffee({bare: true}))
     .pipe(gulp.dest('./app/js'));
 });
 
-gulp.task('css', function() {
+gulp.task('css', function() { // Compile all Stylus to Css
 	gulp.src('./app/stylesheets/main.styl')
 	.pipe(stylus({ use: nib() }))
 	.pipe(gulp.dest('./app/stylesheets'))
 	.pipe(connect.reload());
 });
 
-gulp.task('less', function() {
+gulp.task('less', function() { // Compile all Less to Css
 	gulp.src('./app/stylesheets/*.less')
 	.pipe(less({ use: nib() }))
 	.pipe(gulp.dest('./app/stylesheets'))
 	.pipe(connect.reload());
 });
 
-gulp.task('html', function() {
+gulp.task('html', function() { // Load the index app file
 	gulp.src('./app/**/*.html')
 	.pipe(connect.reload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function() { // Watch the compiling
 	gulp.watch(['./app/**/*.html'], ['html']);
 	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
 	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
 });
 
-gulp.task('default', ['server', 'watch']);
+gulp.task('browser-sync', function() { // Creates an external link for test apps
+    browserSync({
+        server: {
+            baseDir: "./"
+        }
+    });
+});
+gulp.task('default', ['server', 'browser-sync', 'watch']); // Tracing all...
