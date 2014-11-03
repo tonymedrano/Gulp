@@ -53,10 +53,10 @@ gulp.task('html', function() { // Load the index app file
 });
 
 gulp.task('watch', function() { // Watch the compiling
-	gulp.watch(['./app/**/*.html'], ['html']);
 	gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
 	gulp.watch(['./app/stylesheets/**/*.less'], ['less']);
 	gulp.watch(['./app/js/*.coffee'], ['coffee']);
+	gulp.watch(['./app/**/*.html'], ['html']);
 });
 
 gulp.task('browser-sync', function() { // Creates an external link for test apps
@@ -66,4 +66,5 @@ gulp.task('browser-sync', function() { // Creates an external link for test apps
         }
     });
 });
-gulp.task('default', ['server', 'browser-sync', 'watch']); // Tracing all...
+
+gulp.task('default', ['server', 'browser-sync', 'coffee', 'watch']); // Tracing all...

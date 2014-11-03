@@ -1,6 +1,9 @@
-a,
-.link {
+a {
   color: #428bca;
+  text-decoration: none;
+  position: relative;
+  top: 20px;
+  text-transform: lowercase;
 }
 a:hover {
   color: #3071a9;
